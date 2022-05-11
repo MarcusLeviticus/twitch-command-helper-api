@@ -28,7 +28,7 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
     shareToDiscord(clipURL, webhook, clipper)
       .then(() => {
         console.log('Discord share successfull');
-        res.send(`${clipData.url} also shared to discord!`);
+        res.send(`${clipURL} also shared to discord!`);
       })
       .catch(err => {
         console.error('shareToDiscord thenable Something went wrong');
