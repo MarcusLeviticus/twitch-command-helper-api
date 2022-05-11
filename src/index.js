@@ -43,3 +43,5 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
 });
 
 app.listen(PORT, () => console.log(`> Ready on port ${PORT}`));
+
+module.exports = app;
