@@ -5,6 +5,10 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
+app.get('/', (req, res) => {
+  res.send('/shoutout/:name/:game & /clip/:code/:channel/:dcServer/:dcChannel/:clipper');
+});
+
 // !so !shoutout
 app.get('/shoutout/:name/:game', (req, res) => {
   const { name, game } = req.params;
