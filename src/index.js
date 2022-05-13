@@ -25,16 +25,20 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
   try {
     const clipURL = await createClip(code, channel);
 
-    shareToDiscord(clipURL, webhook, clipper)
-      .then(() => {
-        console.log('Discord share successfull');
-        res.send(`${clipURL} also shared to discord!`);
-      })
-      .catch(err => {
-        console.error('shareToDiscord thenable Something went wrong');
-        res.send('Discord share failed');
-        throw new Error(err);
-      });
+    if (clipURL.match(/^http/gm)) { // If it's a link, share it to discord
+      shareToDiscord(clipURL, webhook, clipper)
+        .then(() => {
+          console.log('Discord share successfull');
+          res.send(`${clipURL} also shared to discord!`);
+        })
+        .catch(err => {
+          console.error('shareToDiscord thenable Something went wrong');
+          res.send('Discord share failed');
+          throw new Error(err);
+        });
+    } else { // If not, only share the message
+      res.send(clipURL);
+    }
   } catch (err) {
     console.error('app.get FAILED');
     res.send(`failed to share to discord server D:`);
