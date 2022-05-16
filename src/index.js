@@ -5,10 +5,6 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
-  res.send('/shoutout/:name/:game & /clip/:code/:channel/:dcServer/:dcChannel/:clipper');
-});
-
 // !so !shoutout
 app.get('/shoutout/:name/:game', (req, res) => {
   const { name, game } = req.params;
@@ -44,6 +40,10 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
     res.send(`failed to share to discord server D:`);
     throw new Error(err);
   }
+});
+
+app.get('*', (req, res) => {
+  res.send('Something went wrong! You sure you typed the command correctly? D:');
 });
 
 app.listen(PORT, () => console.log(`> Ready on port ${PORT}`));
