@@ -33,7 +33,7 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
           throw new Error(err);
         });
     } else { // If not, only share the message
-      res.send(clipURL);
+      res.send(`${clipURL} Try it again!`);
     }
   } catch (err) {
     console.error('app.get FAILED');
