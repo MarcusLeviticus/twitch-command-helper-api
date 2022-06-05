@@ -1,5 +1,7 @@
 const express = require('express');
-const { shareToDiscord, createClip } = require('./utils/clip');
+const { createClip } = require('./utils/clip');
+const { shareToDiscord } = require('./utils/discord');
+const { getCurrentlySubbed, getBitsLeaderboard } = require('./utils/twitch');
 
 const app = express();
 
@@ -40,6 +42,20 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
     res.send(`Failed to share to discord server D:`);
     throw new Error(err);
   }
+});
+
+// View all currently subbed users (max 100)
+app.get('/subs/:id', async (req, res) => {
+  const subs = await getCurrentlySubbed(req.params.id);
+
+  res.send(subs);
+});
+
+// View cheerer leaderboard users (max 100)
+app.get('/cheers', async (req, res) => {
+  const cheerers = await getBitsLeaderboard();
+
+  res.send(cheerers);
 });
 
 app.get('*', (req, res) => {
