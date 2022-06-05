@@ -1,11 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const { createClip } = require('./utils/clip');
 const { shareToDiscord } = require('./utils/discord');
 const { getCurrentlySubbed, getBitsLeaderboard } = require('./utils/twitch');
 
-const app = express();
-
 const PORT = process.env.PORT || 8080;
+
+const app = express();
+app.use(cors());
 
 // !so !shoutout
 app.get('/shoutout/:name/:game', (req, res) => {
