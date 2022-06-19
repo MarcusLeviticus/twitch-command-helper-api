@@ -13,7 +13,18 @@ app.use(cors());
 app.get('/shoutout/:name/:game', (req, res) => {
   const { name, game } = req.params;
 
-  if (game.trim() === '<no game>') res.send(`HOW IS YOU MADAFA- I mean ${name}? HungryPaimon`);
+  const randomShoutout = ($name) => {
+    const so = [
+      `HOW IS YOU MADAFA- I mean ${$name}? HungryPaimon`,
+      `How is you ${$name}? HungryPaimon`,
+      `${$name} is here!!! Welcome!!!`
+    ];
+
+    return so[Math.floor(Math.random() * so.length)];
+  };
+
+
+  if (game.trim() === '<no game>') res.send(randomShoutout(name));
   else res.send(`Checkout ${name} at https://twitch.tv/${name} Last seen playing ${game} on stream! HungryPaimon`);
 });
 
