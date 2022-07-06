@@ -23,7 +23,6 @@ app.get('/shoutout/:name/:game', (req, res) => {
     return so[Math.floor(Math.random() * so.length)];
   };
 
-
   if (game.trim() === '<no game>') res.send(randomShoutout(name));
   else res.send(`Checkout ${name} at https://twitch.tv/${name} Last seen playing ${game} on stream! HungryPaimon`);
 });
@@ -39,8 +38,8 @@ app.get('/clip/:code/:channel/:dcServer/:dcChannel/:clipper', async (req, res) =
     if (clipURL.match(/^http/gm)) { // If it's a link, share it to discord
       shareToDiscord(clipURL, webhook, clipper)
         .then(() => {
-          console.log('Discord share successfull');
-          res.send(`${clipURL} also shared to discord!`);
+          console.log('Discord share successful');
+          res.send(`${clipURL} also shared to discord! Refine edit the clip at ${clipURL}/edit`);
         })
         .catch(err => {
           console.error('shareToDiscord thenable Something went wrong');
