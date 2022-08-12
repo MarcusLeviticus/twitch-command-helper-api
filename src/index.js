@@ -3,6 +3,7 @@ const cors = require('cors');
 const { createClip } = require('./utils/clip');
 const { shareToDiscord } = require('./utils/discord');
 const { getCurrentlySubbed, getBitsLeaderboard } = require('./utils/twitch');
+const tof = require('./games/tof');
 
 const PORT = process.env.PORT || 8080;
 
@@ -70,6 +71,10 @@ app.get('/cheers', async (req, res) => {
   res.send(cheerers);
 });
 
+// Tower of Fantasy Commands
+app.use('/tof', tof);
+
+// Wrong command
 app.get('*', (req, res) => {
   res.send('Something went wrong! You sure you typed the command correctly? D:');
 });
